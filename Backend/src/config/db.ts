@@ -11,7 +11,7 @@ export const db = new DataSource({
   username: process.env.DB_USER || "root",
   password: process.env.DB_PASS || "sb@DLT023jds",
   database: process.env.DB_NAME || "los_system",
-  synchronize: false, // keep false if you already have an existing DB
+  synchronize: false,
   logging: true,
   entities: [__dirname + "/../entities/*.ts"],
 });
