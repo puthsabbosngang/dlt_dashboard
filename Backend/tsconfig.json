@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    /* File Structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Target Environment */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ESNext"],
+    "types": ["node"],
+
+    /* Output Settings */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+
+    /* Module Behavior */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false
+  },
+  "include": ["src", "src/server.ts"],
+  "exclude": ["node_modules"]
+}
