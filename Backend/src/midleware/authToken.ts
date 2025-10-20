@@ -3,27 +3,32 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 const SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
-interface AuthenticatedRequest extends Request {
-  user?: string | JwtPayload;
+declare global {
+  namespace Express {
+    interface Request {
+      user?: string | JwtPayload;
+    }
+  }
 }
 
 export function authenticateToken(
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
-) {
+): void {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "No token provided" });
+    res.status(401).json({ message: "No token provided" });
+    return;
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET) as string | JwtPayload;
+    const decoded = jwt.verify(token, SECRET);
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(403).json({ message: "Invalid token" });
+    res.status(403).json({ message: "Invalid token" });
   }
 }

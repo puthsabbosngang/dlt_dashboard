@@ -1,15 +1,69 @@
 import { Button } from "../ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { useNavigate, useLocation } from "react-router-dom"
+import { authAPI } from "../../../service/api/autAPI"
+import { useState, useEffect } from "react"
 
 export function Navbar() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [staffName, setStaffName] = useState<string>("")
+
+  useEffect(() => {
+    // Get staff name from localStorage
+    const userData = localStorage.getItem('userData')
+    if (userData) {
+      try {
+        const user = JSON.parse(userData)
+        if (user.staff?.full_name) {
+          setStaffName(user.staff.full_name)
+        } else {
+          setStaffName(user.username)
+        }
+      } catch (error) {
+        console.error('Error parsing user data:', error)
+      }
+    }
+  }, [])
+
+  const handleLogout = () => {
+    authAPI.logout()
+    navigate('/login')
+  }
+
+  // Get initials for avatar
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word.charAt(0))
+      .join('')
+      .toUpperCase()
+      .slice(0, 2)
+  }
+
+  const routeTitles : Record<string, string> ={
+    "/dashboard/overview": "Overview",
+    "/dashboard/customer-support-department": "Customer Support Department",
+    "/dashboard/credit-department": "Credit Department",
+    "/dashboard/users-management": "User Management"
+  }
+
+  const title = routeTitles[location.pathname] || "Overview"
+
   return (
     <header className="w-full h-14 border-b bg-white flex items-center justify-between px-6">
-      <h2 className="text-lg font-semibold">Overview</h2>
+      <h2 className="text-lg font-semibold">{title}</h2>
       <div className="flex items-center space-x-4">
-        <Button variant="outline" className="bg-red-600 text-white border-red-700 hover:bg-red-800 hover:text-white">Log Out</Button>
+        <Button 
+          variant="outline" 
+          className="bg-red-800 text-white border-red-800 hover:bg-red-900 hover:text-white"
+          onClick={handleLogout}
+        >
+          Log Out
+        </Button>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>SN</AvatarFallback>
+          <AvatarFallback>{getInitials(staffName || "User")}</AvatarFallback>
         </Avatar>
       </div>
     </header>
