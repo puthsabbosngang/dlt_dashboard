@@ -7,6 +7,12 @@ import CustomerSupportDashboard from "./components/dashboard-component/CustomerS
 import CreditDashboard from "./components/dashboard-component/CreditDashboard";
 import { authAPI } from "../service/api/autAPI";
 import { UsersManagementDashboard } from "./components/dashboard-component/UsersManagementDashboard";
+import InformationTechnologyDashboard from "./components/dashboard-component/IfomationTechnologyDashboard";
+import DigitalMarketingDashboard from "./components/dashboard-component/DigitalMarketingDashboard";
+import CollectionDashboard from "./components/dashboard-component/CollectionDashboard";
+import FinanceDashboard from "./components/dashboard-component/FinanceDashhboard";
+import HumanResourcesDashboard from "./components/dashboard-component/HumanResourcesDashboard";
+import ReportsDashboard from "./components/dashboard-component/ReportsDashboard";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -97,8 +103,14 @@ export default function App() {
           >
             <Route index element={<Navigate to="/dashboard/overview" replace />} />
             <Route path="overview" element={<OverviewDashboard />} />
+            <Route path="information-technology-department" element={<InformationTechnologyDashboard />} />
+            <Route path="digital-marketing-department" element={<DigitalMarketingDashboard />} />
             <Route path="customer-support-department" element={<CustomerSupportDashboard />} />
             <Route path="credit-department" element={<CreditDashboard />} />
+            <Route path="collection-department" element={<CollectionDashboard />} />
+            <Route path="finance-department" element={<FinanceDashboard />} />
+            <Route path="human-resources-department" element={<HumanResourcesDashboard />} />
+            <Route path="reports" element={<ReportsDashboard />} />
             <Route path="users-management" element={<UsersManagementDashboard />} />
           </Route>
 

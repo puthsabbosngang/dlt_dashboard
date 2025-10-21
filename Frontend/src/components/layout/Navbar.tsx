@@ -43,8 +43,14 @@ export function Navbar() {
 
   const routeTitles : Record<string, string> ={
     "/dashboard/overview": "Overview",
+    "/dashboard/information-technology-department": "Information Technology Department",
+    "/dashboard/digital-marketing-department": "Digital Marketing Department",
     "/dashboard/customer-support-department": "Customer Support Department",
     "/dashboard/credit-department": "Credit Department",
+    "/dashboard/collection-department": "Collection Department",
+    "/dashboard/finance-department": "Finance Department",
+    "/dashboard/human-resources-department": "Human Resources Department",
+    "/dashboard/reports": "Reports",
     "/dashboard/users-management": "User Management"
   }
 
